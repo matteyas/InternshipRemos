@@ -1,6 +1,6 @@
 # HPA Calibration Workflow
 
-This guide describes the workflow for calibrating an HPA power prediction model using the provided Raspberry Pi tools.
+This guide describes the workflow for calibrating an HPA power prediction model using the provided tools.
 
 ## Repository Overview
 | Directory | Description |
@@ -11,9 +11,7 @@ This guide describes the workflow for calibrating an HPA power prediction model 
 
 ## Requirements
 
-- Raspberry Pi
 - Power meter
-- HPA device
 - Calibration GUI tool (`calibration-tool/calibration-tool-gui.py`)
 - Voltage reading CLI tool (`modbus/read-voltage-cli-tool/`)
 
@@ -96,6 +94,6 @@ At the end of this process, the Calibration Tool should contain **15–18 measur
 
 ## 4. Export Configuration
 
-1. Save the generated coefficients as `config.json`.
+1. Save the generated coefficients as a JSON file (`Save config.json`).
 2. Upload the JSON configuration file to the Raspberry Pi.
 
