@@ -1,0 +1,49 @@
+Device: https://www.waveshare.com/modbus-rtu-analog-input-8ch.htm
+Wiki:   https://www.waveshare.com/wiki/Modbus_RTU_Analog_Input_8CH
+
+
+###
+
+
+Short summary:
+The Modbus device can handle reading 0-10V analog signals. Each signal will be represented inside the internal holding registers, which can be accessed using standard Modbus libraries, with function code 4 (0x04). The first input is at address 0, and each consecutive address holds the next input.
+
+See the CLI tool for reading voltages for further details:
+read_voltage.c
+
+Usage of CLI tool:
+./build.sh
+./read-voltage
+
+Note:
+The CLI tool makes use of a standard Modbus library provided by Industrial Shields:
+https://www.industrialshields.com/blog/raspberry-pi-for-industry-26/how-to-use-modbus-rtu-with-touchberry-panel-upsafepi-646
+modbus.c
+modbus.h
+
+Note:
+If the Modbus device is configured incorrectly, it might report incorrect values (for example, double voltage values). If so, run the configure modbus CLI tool.
+
+Usage:
+./build.sh
+./mode
+
+
+###
+
+
+Default Serial Configuration:
+The Modbus device comes preconfigured at 9600 baudrate, 8 data bits, No parity, 1 stop bit (8N1).
+
+
+###
+
+Pins:
+AI1+, AI1-, ..., AI8+, AI8-:
+These are where the voltage signals to be read are connected.
+
+7~36V, GND:
+Connect power to the Modbus device.
+
+A+, B+:
+This is the RS485 RTU interface, which should be connected to the Raspberry Pi. The connection setup is direct, A+ <-> A+ and B+ <-> B+.

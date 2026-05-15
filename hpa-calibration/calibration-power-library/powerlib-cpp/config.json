@@ -1,0 +1,52 @@
+{
+  "system": "Sequencer",
+  "description": "System information for the Sequencer",
+  "chan0": {
+    "label": "Channel 1",
+    "enabled": true,
+    "partName": "PartA"
+  },
+  "chan1": {
+    "label": "Channel 2",
+    "enabled": true,
+    "partName": "PartB"
+  },
+  "temperature1": {
+    "label": "HPA 1",
+    "enabled": true,
+    "partName": "PartA"
+  },
+  "temperature2": {
+    "label": "HPA 2",
+    "enabled": true,
+    "partName": "PartB"
+  },
+  "powercalculation1": {
+    "enabled": true,
+    "a0": 0.06043383364244115,
+    "a1": -0.13646070169987434,
+    "a2": 1.050202669452432,
+    "b0": 0.6444124815277373,
+    "b1": -0.8430834047711497,
+    "b2": 0.03228988190702568,
+    "c0": -1.1322235197690158,
+    "c1": 1.4463060509321892,
+    "c2": 0.1620187949272934,
+    "fmin": 420000000.0,
+    "fmax": 440000000.0
+  },
+  "powercalculation2": {
+    "enabled": false,
+    "a0": 0.06043383364244115,
+    "a1": -0.13646070169987434,
+    "a2": 1.050202669452432,
+    "b0": 0.6444124815277373,
+    "b1": -0.8430834047711497,
+    "b2": 0.03228988190702568,
+    "c0": -1.1322235197690158,
+    "c1": 1.4463060509321892,
+    "c2": 0.1620187949272934,
+    "fmin": 420000000.0,
+    "fmax": 440000000.0
+  }
+}

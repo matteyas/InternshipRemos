@@ -1,0 +1,15 @@
+Issue:
+There is a disconnection between the incoming charging port to the battery side, along the PCB.
+See images and video for diagnostics.
+
+###
+
+Solution attempts:
+The FSH6 mainboard is replaceable from R&S with part number 1157.3570.00 according to the manual.
+I have sent part requests to two sites (wbparts.com and www.csgparts.com) without receiving any reply.
+
+The next step might be to register on Rohde & Schwarz site and get in contact with them directly:
+https://www.rohde-schwarz.com/us/service-support/customer-self-service-applications/supportcenter_258469.html
+
+Another suggestion is to charge the battery on the side in a specific charging station, and then swap out the batteries. The downside is that the battery swap is quite a hefty operation. See the service manual for further details:
+Alltest-Rohde-and-Schwarz-FSH6-ServiceManual.pdf

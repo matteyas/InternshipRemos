@@ -1,0 +1,18 @@
+Modbus Device Wiring Overview
+
+1) Connect power to 7~36V and GND
+[modbus-power.png]
+
+2) AI1 to AI8 on the Modbus device represents the analog inputs
+Default configuration:
+Modbus		External
+AI1	<->	HPA 1 Voltage Monitor Signal
+AI2	<->	HPA 2 Voltage Monitor Signal
+[modbus-analog-inputs.png]
+
+3) Connect the RS485 interface
+Modbus		Raspberry Pi
+A+	<->	A+
+B-	<->	B-
+[modbus-rs485-001.png]
+[modbus-rs485-002.png]

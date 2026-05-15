@@ -1,0 +1,5 @@
+Tkinter for the GUI
+On some operating systems, tkinter isn't available by default
+
+Use this command line (Ubuntu) or similar to install it:
+sudo apt install python3-tk
