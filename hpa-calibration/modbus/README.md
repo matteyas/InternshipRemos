@@ -5,9 +5,8 @@ This guide describes the workflow for calibrating an HPA power prediction model 
 ## Repository Overview
 | Directory | Description |
 |---|---|
-| `modbus` | Everything connected to the Modbus device (read voltages, wiring, et cetera) |
-| `calibration-tool` | The main Calibration Tool GUI application |
-| `calibration-power-library` | The backend cpp code for power estimation, uses calibration data |
+| `read-voltage-cli-tool` | Command Line Tool for reading voltages from the Modbus device |
+| `configure-modbus-cli-tool` | Read/write the current configuration of the Modbus device |
 
 ## Requirements
 
