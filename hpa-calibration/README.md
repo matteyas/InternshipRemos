@@ -1,12 +1,12 @@
 # HPA Calibration Workflow
 
-This guide describes the workflow for calibrating an HPA power prediction model using the provided tools.
+This guide describes the workflow for calibrating an HPA power prediction model using the provided tools. A full tutorial video is also available in the `docs` folder under the `calibration-tool` folder.
 
 ## Repository Overview
 | Directory | Description |
 |---|---|
 | `modbus` | Everything connected to the Modbus device (read voltages, wiring, et cetera) |
-| `calibration-tool` | The main Calibration Tool GUI application |
+| `calibration-tool` | The main Calibration Tool GUI application (tutorial video available in `calibration-tool/docs`) |
 | `calibration-power-library` | The backend cpp code for power estimation (uses calibration data) |
 
 ## Requirements
@@ -52,12 +52,12 @@ python ./calibration-tool/calibration-tool.py
 ./read-voltage
 ```
 
-5. Read the power as well, and all the necessary values for one measurement is compiled:
-   - Voltage
+5. Record the power reading. All the necessary values for one measurement are now known:
+   - Voltage (V)
    - Measured power (W)
    - Frequency (Hz)
 
-6. Enter the values into the Calibration Tool.
+6. Enter these values into a row in the Calibration Tool. (Note: Voltage and power are bounded to 0-10V and 0-200W. Easy to configure near the top of the `.py`.)
 
 ### Sweep Gain Values
 
@@ -85,7 +85,7 @@ Example:
 > - The highest supported frequency
 > - One midpoint frequency
 
-At the end of this process, the Calibration Tool should contain **15–18 measurement samples**.
+At the end of this process, the Calibration Tool should contain **15–18 measurement samples** (each having voltage/watt/frequency specified).
 
 ---
 
@@ -93,7 +93,7 @@ At the end of this process, the Calibration Tool should contain **15–18 measur
 
 1. Press **Run Calibration** in the Calibration Tool.
 2. (Optional) Use the Prediction Tool to test values outside the measured range and evaluate prediction accuracy.
-3. (Optional) Repeat the entire workflow for additional HPAs.
+3. (Optional) Repeat the entire workflow if there is a second HPA.
 
 ---
 
