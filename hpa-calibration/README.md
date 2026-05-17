@@ -7,7 +7,7 @@ This guide describes the workflow for calibrating an HPA power prediction model 
 |---|---|
 | `modbus` | Everything connected to the Modbus device (read voltages, wiring, et cetera) |
 | `calibration-tool` | The main Calibration Tool GUI application |
-| `calibration-power-library` | The backend cpp code for power estimation, uses calibration data |
+| `calibration-power-library` | The backend cpp code for power estimation (uses calibration data) |
 
 ## Requirements
 
@@ -19,16 +19,16 @@ This guide describes the workflow for calibrating an HPA power prediction model 
 
 ## 1. Measurement Setup
 
-1. Connect the power meter to the HPA.
+1. Connect the power meter to the HPA. (Make sure to use a load element as the end point.)
 2. Upload the voltage reading tool to the Raspberry Pi.
-3. Compile the voltage reading tool:
+3. Compile the voltage reading tool on the Pi:
 
 ```bash
 cd ./modbus/read-voltage-cli-tool/
 ./build.sh
 ```
 
-4. Start the calibration GUI:
+4. Start the calibration GUI on a local computer:
 
 ```bash
 python ./calibration-tool/calibration-tool.py
@@ -46,8 +46,13 @@ python ./calibration-tool/calibration-tool.py
 
 ### Record Measurements
 
-4. Run the voltage reading tool and record the measured voltage.
-5. Record:
+4. Run the voltage reading tool on the Pi and record the measured voltage.
+
+```bash
+./read-voltage
+```
+
+5. Read the power as well, and all the necessary values for one measurement is compiled:
    - Voltage
    - Measured power (W)
    - Frequency (Hz)
