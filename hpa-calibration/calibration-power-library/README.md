@@ -1,100 +1,51 @@
-# HPA Calibration Workflow
+# Power Estimation Library
 
-This guide describes the workflow for calibrating an HPA power prediction model using the provided Raspberry Pi tools.
+C++ and C code available. This readme will focus on the C++ version (`powerlib-cpp/power_library.hpp`).
 
-## Repository Overview
-| Directory | Description |
-|---|---|
-| `read-voltage-cli-tool` | Command Line Tool for reading voltages from the Modbus device |
-| `configure-modbus-cli-tool` | Read/write the current configuration of the Modbus device |
+This library handles three things:
+1) Parsing of a JSON configuration file containing calibration data (output from calibration tool)
+2) Communication with the Modbus device to read the voltage monitor signal from the HPAs
+3) Converting the read voltage and a user supplied frequency (in Hz) to a power estimate
 
-## Requirements
+The public interface is simple to use. Construct an instance, passing the path to the JSON configuration file as the only input parameter. Two functions (`get_power_hpa1` and `get_power_hpa1`) are available that take frequency (as a double, specified in Hz, so e.g. 435000000 or 435e6 for 435MHz) as an input parameter and outputs the estimated power (in watts). The public interface is included in full below.
 
-- Raspberry Pi
-- Power meter
-- HPA device
-- Calibration GUI tool (`calibration-tool/calibration-tool-gui.py`)
-- Voltage reading CLI tool (`modbus/read-voltage-cli-tool/`)
+Test code (`powerlib-cpp/power_library_test.cpp`) is available and can be built using `./build-test.sh` and then run with `./power-test`, with a JSON config file included by default. The test code assumes a Modbus device is available.
 
----
+Note that this library currently depends on a C library for Modbus communication that is [provided by Industrial Shields](https://www.industrialshields.com/blog/raspberry-pi-for-industry-26/how-to-use-modbus-rtu-with-touchberry-panel-upsafepi-646?) (`modbus.h` and `modbus.c`, both included in this repository). The modbus library can be compiled separately (the build script for the test code mentioned in the prior paragraph compiles it).
 
-## 1. Measurement Setup
+```cpp
+class SimplePower {
+public:
+    explicit SimplePower(const std::string& json_path = "config.json") 
+        // initialize coefficient storage, estimation engine, modbus interface
+        : config_(),
+        estimation_(config_),
+        modbus_() // defaults to id 1, baud 9600, serial 8N1
+    {
+        // load coefficients
+        config_.load(json_path);
+    }
 
-1. Connect the power meter to the HPA.
-2. Upload the voltage reading tool to the Raspberry Pi.
-3. Compile the voltage reading tool:
+    std::optional<double> get_power_hpa1(double frequency) {
+        auto voltage = modbus_.read_voltage(HPA1);
+        if (!voltage) { return std::nullopt; }
 
-```bash
-cd ./modbus/read-voltage-cli-tool/
-./build.sh
+        return estimation_.calculate_power(HPA1, *voltage, frequency);
+    }
+
+    std::optional<double> get_power_hpa2(double frequency) {
+        auto voltage = modbus_.read_voltage(HPA2);
+        if (!voltage) { return std::nullopt; }
+
+        return estimation_.calculate_power(HPA2, *voltage, frequency);
+    }
+
+private:
+    internal::PowerConfiguration config_;
+    internal::PowerEstimation estimation_;
+    internal::ModbusDevice modbus_;
+
+    static constexpr int HPA1 = 0;
+    static constexpr int HPA2 = 1;
+};
 ```
-
-4. Start the calibration GUI:
-
-```bash
-python ./calibration-tool/calibration-tool.py
-```
-
----
-
-## 2. Collect Calibration Data
-
-### Configure the HPA
-
-1. Set the HPA to the lowest supported frequency (example: `400 MHz`).
-2. Set the HPA to the lowest supported gain (example: `20`).
-3. Enable the HPA.
-
-### Record Measurements
-
-4. Run the voltage reading tool and record the measured voltage.
-5. Record:
-   - Voltage
-   - Measured power (W)
-   - Frequency (Hz)
-
-6. Enter the values into the Calibration Tool.
-
-### Sweep Gain Values
-
-7. Repeat the measurement process for increasing gain values until the highest supported gain is reached.
-
-Example:
-
-```text
-20 → 22 → 24 → 26 → 28 → 30
-```
-
-### Sweep Frequency Values
-
-8. Repeat the entire process for at least two additional frequencies.
-
-Example:
-
-```text
-400 MHz → 440 MHz → 480 MHz
-```
-
-> For best results, use:
->
-> - The lowest supported frequency
-> - The highest supported frequency
-> - One midpoint frequency
-
-At the end of this process, the Calibration Tool should contain **15–18 measurement samples**.
-
----
-
-## 3. Run Calibration
-
-1. Press **Run Calibration** in the Calibration Tool.
-2. (Optional) Use the Prediction Tool to test values outside the measured range and evaluate prediction accuracy.
-3. (Optional) Repeat the entire workflow for additional HPAs.
-
----
-
-## 4. Export Configuration
-
-1. Save the generated coefficients as `config.json`.
-2. Upload the JSON configuration file to the Raspberry Pi.
-
