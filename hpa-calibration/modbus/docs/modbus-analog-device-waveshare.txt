@@ -45,5 +45,5 @@ These are where the voltage signals to be read are connected.
 7~36V, GND:
 Connect power to the Modbus device.
 
-A+, B+:
-This is the RS485 RTU interface, which should be connected to the Raspberry Pi. The connection setup is direct, A+ <-> A+ and B+ <-> B+.
+A+, B-:
+This is the RS485 RTU interface, which should be connected to the Raspberry Pi. The connection setup is direct, A+ <-> A+ and B- <-> B-.
