@@ -11,7 +11,7 @@ This guide describes the workflow for calibrating an HPA power prediction model 
 
 ## Requirements
 
-- Power meter
+- Power meter connected to the HPA
 - Calibration GUI tool (`calibration-tool/calibration-tool-gui.py`)
 - Voltage reading CLI tool (`modbus/read-voltage-cli-tool/`)
 
