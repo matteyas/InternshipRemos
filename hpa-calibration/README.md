@@ -57,7 +57,7 @@ python ./calibration-tool/calibration-tool.py
    - Measured power (W)
    - Frequency (Hz)
 
-6. Enter these values into a row in the Calibration Tool. (Note: Voltage and power are bounded to 0-10V and 0-200W. Easy to configure near the top of the `.py`.)
+6. Enter these values into a row in the Calibration Tool.
 
 ### Sweep Gain Values
 
